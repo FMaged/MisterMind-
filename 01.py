@@ -41,10 +41,7 @@ def Colorize(text: str, Color: str) -> str:
     return Colors.get(Color, "") + text + Colors["RESET"]
 
 
-def uberprufen(
-    Colors,
-    Code_Length,
-):
+def uberprufen(Colors, Code_Length):
     Same = False
     Guess = ""
     while not len(Guess) == Code_Length or not Same:
