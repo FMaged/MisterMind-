@@ -1,3 +1,7 @@
+import Global
+import Logik
+import validate
+
 ScreenOptions: dict = {
     1: "4Pins",
     2: "6Pins",
@@ -14,11 +18,37 @@ def drawScreenHeader(Title: str, SubTitle: str = "") -> None:
 
 
 def mainMenu():
-    print(f"{'':<45}  Choose what you want [1 - 3]\n")
+    print(f"{'':<45}  Choose what you want [0 - 2]\n")
     print(f"{'':<45}[1] Play with 4 Pin and 6 Color.")
     print(f"{'':<45}[2] Play with 6 Pin and 8 Color.")
     print(f"\n{'':<45}[0] To Exit.")
+    chooies: int = validate.readIntBetween(0, 2)
+    match chooies:
+        case 1:
+            _4PinsScreen(Global.COLORS, Global.CODE_LENGHT, Global.ATTEMPTS)
+            Global.Chois = 1
+        case 2:
+            pass
+        case 3:
+            pass
 
 
-drawScreenHeader("MisterMind")
-mainMenu()
+def _4PinsScreen(Colors: list, Code_Length, Attempts):
+    validate.clear_terminal()
+    print(f"{'':<50}{Logik.Colorize("Welcome to MisterMind!", "G")}")
+    print(f"{'':<42}The goal is to guess the Secret COLORE")
+    print(f"{'':<36}The Code is made up of the following COLORS {Logik.Colorized_list(Colors)}")
+    print(f"{'':<41}The Secret code constists of ", {Code_Length}, " Colors")
+    print(f"{'':<39}you Have {Attempts} Attempts to guess the secret code.")
+    print(
+        f"{'':<31}Enter your guess as a continous string of letters, e,g. '" + Logik.Colorized_list(Colors[0:4]) + "'"
+    )
+    input(f"{'':<48}Press Enter to continue...")
+
+    validate.clear_terminal()
+    Logik.play_Game()
+
+
+if __name__ == "__main__":
+    drawScreenHeader("MisterMind")
+    mainMenu()

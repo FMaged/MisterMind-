@@ -1,3 +1,14 @@
+import os
+import platform
+
+
+def clear_terminal():
+    if platform.system() == "Windows":
+        os.system("cls")  # Clear command for Windows
+    else:
+        os.system("clear")  # Clear command for macOS/Linux
+
+
 def readInt() -> int:
     while True:
         try:
@@ -29,5 +40,5 @@ def readSpecificChars(CharList: list) -> list:
     return List
 
 
-num1 = readIntBetween(0, 2)
-print(type(num1))
+# num1 = readIntBetween(0, 2)
+# print(type(num1))

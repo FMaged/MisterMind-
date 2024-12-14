@@ -114,8 +114,7 @@ def play_Game():
             print(Colorize("YOU LOSE", "R"))
             return
 
-
-if __name__ == "__main__":
+    # if __name__ == "__main__":
     begrussen(COLORS, CODE_LENGHT, ATTEMPTS)
 
     play_Game()
