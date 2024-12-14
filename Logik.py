@@ -39,7 +39,7 @@ def Colorized_list(list):
 
 
 def generate_Secrate_Code(Colors, code_Lenght):
-    print("DEBUG: Generating secret code ....", Colorized_list(Colors), code_Lenght)
+    printt(f"    DEBUG: Generating secret code .... {Colorized_list(Colors)}")
     return random.choices(Global.COLORS, k=code_Lenght)
 
 
@@ -49,29 +49,31 @@ def CalculateMatches(Secret_Code, GuessList):
     for i in range(Global.CODE_LENGHT):
         if GuessList[i] == Secret_Code[i]:
             schwarz += 1
-        Set_Secret_Code = set(Secret_Code)
-        if GuessList[i] in Set_Secret_Code:
+        Set_GuessList = set(GuessList)
+        if Secret_Code[i] in Set_GuessList:
             weiss += 1
-    return schwarz, weiss - schwarz
+    return schwarz, (weiss - schwarz)
 
 
 def play_Game():
     secret_Code = generate_Secrate_Code(Global.COLORS, Global.CODE_LENGHT)
-    print("DEBUG: Secret Code: ", Colorized_list(secret_Code))
-    print("Enter your guess: ")
+    printt(f"      DEBUG: Secret Code: {Colorized_list(secret_Code)}")
     for i in range(Global.ATTEMPTS):
         GuessList = validate.readSpecificChars(Global.COLORS)
+        sys.stdout.write("\033[F")  # Move the cursor up one line
+        sys.stdout.write("\033[K")  # Clear the line
         schwarz, weiss = CalculateMatches(secret_Code, GuessList)
         Colorized_list_Str = Colorized_list(GuessList)
-        print("Attempt", i + 1, Colorized_list_Str, "schwarz:", schwarz, " Weiss: ", weiss)
+        printt(f"Attempt {i + 1} {Colorized_list_Str} schwarz: {schwarz}, Weiss:  {weiss}")
         if schwarz == Global.Chois:
-            print(Colorize("YOU WON!", "G"))
+            printt(f"{Colorize("     YOU WON!", "G")}")
             return
-        if i == Global.ATTEMPTS:
-            print(Colorize("YOU LOSE", "R"))
+        if i >= Global.ATTEMPTS:
+            printt(f"{Colorize("     YOU LOSE!", "R")}")
             return
 
 
-def Stew(text: str) -> int:
+def printt(text: str) -> int:
     length = len(text)
-    return 61 - (length / 2)
+    stew = 61 - (length / 5)
+    print(f"{'':<{stew}}{text}")

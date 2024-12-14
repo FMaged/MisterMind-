@@ -25,8 +25,9 @@ def mainMenu():
     chooies: int = validate.readIntBetween(0, 2)
     match chooies:
         case 1:
+            Global.Chois = 4
             _4PinsScreen(Global.COLORS, Global.CODE_LENGHT, Global.ATTEMPTS)
-            Global.Chois = 1
+
         case 2:
             pass
         case 3:
