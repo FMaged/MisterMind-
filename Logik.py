@@ -3,6 +3,7 @@ import random
 import sys
 
 import Global
+import LoginScreen
 import validate
 
 
@@ -39,7 +40,7 @@ def Colorized_list(list):
 
 
 def generate_Secrate_Code(Colors, code_Lenght):
-    printt(f"    DEBUG: Generating secret code .... {Colorized_list(Colors)}")
+    printt(f"DEBUG: Generating secret code .... {Colorized_list(Colors)}")
     return random.choices(Global.COLORS, k=code_Lenght)
 
 
@@ -56,10 +57,11 @@ def CalculateMatches(Secret_Code, GuessList):
 
 
 def play_Game():
+    LoginScreen.drawScreenHeader("MisterMind")
     secret_Code = generate_Secrate_Code(Global.COLORS, Global.CODE_LENGHT)
-    printt(f"      DEBUG: Secret Code: {Colorized_list(secret_Code)}")
+    printt(f" DEBUG: Secret Code: {Colorized_list(secret_Code)}")
     for i in range(Global.ATTEMPTS):
-        GuessList = validate.readSpecificChars(Global.COLORS)
+        GuessList = validate.readSpecificChars(Global.COLORS, "Enter your guess: ")
         sys.stdout.write("\033[F")  # Move the cursor up one line
         sys.stdout.write("\033[K")  # Clear the line
         schwarz, weiss = CalculateMatches(secret_Code, GuessList)
@@ -68,7 +70,7 @@ def play_Game():
         if schwarz == Global.Chois:
             printt(f"{Colorize("     YOU WON!", "G")}")
             return
-        if i >= Global.ATTEMPTS:
+        if i >= Global.ATTEMPTS - 1:
             printt(f"{Colorize("     YOU LOSE!", "R")}")
             return
 

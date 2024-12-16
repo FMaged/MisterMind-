@@ -27,11 +27,10 @@ def readIntBetween(From: int, To: int) -> int:
     return num
 
 
-def readSpecificChars(CharList: list) -> list:
+def readSpecificChars(CharList: list, text: str) -> list:
     List = ""
     while not len(List) == len(CharList) - 2:
-        text = "Enter your guess: "
-        List = input(f"{'':<{61 - (len(text) / 5)}}{text}")
+        List = input(f"{'':<{55 - (len(text) / 5)}}{text}")
 
         List = list(List.upper())
         for Char in List:
@@ -40,7 +39,3 @@ def readSpecificChars(CharList: list) -> list:
                 break
 
     return List
-
-
-# num1 = readIntBetween(0, 2)
-# print(type(num1))

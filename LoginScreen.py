@@ -36,6 +36,7 @@ def mainMenu():
 
 def _4PinsScreen(Colors: list, Code_Length, Attempts):
     validate.clear_terminal()
+    drawScreenHeader("MisterMind")
     print(f"{'':<50}{Logik.Colorize("Welcome to MisterMind!", "G")}")
     print(f"{'':<42}The goal is to guess the Secret COLORE")
     print(f"{'':<36}The Code is made up of the following COLORS {Logik.Colorized_list(Colors)}")
@@ -48,8 +49,3 @@ def _4PinsScreen(Colors: list, Code_Length, Attempts):
 
     validate.clear_terminal()
     Logik.play_Game()
-
-
-if __name__ == "__main__":
-    drawScreenHeader("MisterMind")
-    mainMenu()
