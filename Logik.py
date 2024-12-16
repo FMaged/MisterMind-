@@ -32,22 +32,22 @@ def Colorize(text: str, Color: str) -> str:
     return Colors.get(Color, "") + text + Colors["RESET"]
 
 
-def Colorized_list(list):
+def Colorized_list(list: list) -> str:
     Colorized_list = []
     for char in list:
         Colorized_list.append(Colorize(char, char))
     return "".join(Colorized_list)
 
 
-def generate_Secrate_Code(Colors, code_Lenght):
+def generate_Secrate_Code(Colors: list, code_Lenght: int) -> list:
     printt(f"DEBUG: Generating secret code .... {Colorized_list(Colors)}")
-    return random.choices(Global.COLORS, k=code_Lenght)
+    return random.choices(Global.COLORS, k=Global.Chois)
 
 
-def CalculateMatches(Secret_Code, GuessList):
+def CalculateMatches(Secret_Code: list, GuessList: list) -> tuple:
     schwarz = 0
     weiss = 0
-    for i in range(Global.CODE_LENGHT):
+    for i in range(len(Secret_Code)):
         if GuessList[i] == Secret_Code[i]:
             schwarz += 1
         Set_GuessList = set(GuessList)
@@ -56,12 +56,12 @@ def CalculateMatches(Secret_Code, GuessList):
     return schwarz, (weiss - schwarz)
 
 
-def play_Game():
+def play_Game() -> None:
     LoginScreen.drawScreenHeader("MisterMind")
-    secret_Code = generate_Secrate_Code(Global.COLORS, Global.CODE_LENGHT)
+    secret_Code = generate_Secrate_Code(Global.COLORS, Global.Chois)
     printt(f" DEBUG: Secret Code: {Colorized_list(secret_Code)}")
     for i in range(Global.ATTEMPTS):
-        GuessList = validate.readSpecificChars(Global.COLORS, "Enter your guess: ")
+        GuessList = validate.readSpecificChars(secret_Code, Global.Chois, "Enter your guess: ")
         sys.stdout.write("\033[F")  # Move the cursor up one line
         sys.stdout.write("\033[K")  # Clear the line
         schwarz, weiss = CalculateMatches(secret_Code, GuessList)

@@ -1,8 +1,11 @@
 import os
 import platform
 
+import Global
+import Logik
 
-def clear_terminal():
+
+def clear_terminal() -> None:
     if platform.system() == "Windows":
         os.system("cls")  # Clear command for Windows
     else:
@@ -27,15 +30,28 @@ def readIntBetween(From: int, To: int) -> int:
     return num
 
 
-def readSpecificChars(CharList: list, text: str) -> list:
+def readSpecificChars(CharList: list, Len_Chois: int, text: str) -> list:
     List = ""
-    while not len(List) == len(CharList) - 2:
+    while not len(List) == Len_Chois:
         List = input(f"{'':<{55 - (len(text) / 5)}}{text}")
-
+        if not len(List) == CharList:
+            Logik.printt(
+                Logik.Colorize(
+                    ("please Enter a Guess with only " + str(Global.Chois) + " Colors. Your entered ")
+                    + str(len(List))
+                    + " Colors",
+                    "R",
+                )
+            )
         List = list(List.upper())
         for Char in List:
             if Char not in CharList:
                 List = ""
+                Logik.printt(
+                    Logik.Colorize(
+                        "please enter a string that contains " + "".join(Global.COLORS[0 : Global.Chois]), "R"
+                    )
+                )
                 break
 
     return List

@@ -1,4 +1,3 @@
-COLORS = ["R", "B", "G", "Y", "C", "P"]
-CODE_LENGHT = 4
-ATTEMPTS = 10
-Chois = -1
+COLORS: list = ["R", "B", "G", "Y", "C", "P"]
+ATTEMPTS: int = 10
+Chois: int = -1
